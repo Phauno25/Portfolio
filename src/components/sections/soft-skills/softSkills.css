@@ -1,0 +1,17 @@
+.soft_skills_container::before{
+    content: "";
+    background-image: url("../../../assets/softSkills.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    z-index: -1;
+}
+.soft_skills_container{
+    opacity: 1;
+}

@@ -1,11 +1,45 @@
-import NavBar from "./components/layout/navbar/NavBar";
 import Main from "./components/layout/main/Main";
+import { colors } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
+import ContextProvider from "./context/contextData";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./components/login/components/Login";
+
+
+const theme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#1F4690",
+    },
+    secondary: {
+      main: colors.orange[400],
+    },
+    info: {
+      main: "#064663",
+    },
+    error:{
+      main: "#A62349",
+    },
+    background: {
+      default: "#252525",
+    },
+  },
+});
 
 function App() {
   return (
     <div className="App">
-      <NavBar></NavBar>
-      <Main></Main>
+      <ContextProvider>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Main/>}/>
+              <Route path="/SignIn" element={<Login />}></Route>
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
+      </ContextProvider>
     </div>
   );
 }

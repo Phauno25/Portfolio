@@ -1,0 +1,21 @@
+.imgLanding{
+    object-fit: cover;
+    height: 100%;
+}
+
+
+.scroll_text {
+    animation-name: colorchange;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.highlight{
+    color:   #ECB365;
+}
+
+@keyframes colorchange {
+    0%   {color: white;}
+  50%  {color:#ECB365}
+  100% {color: white; }
+}
