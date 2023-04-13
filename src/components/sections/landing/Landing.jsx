@@ -1,17 +1,18 @@
-import { Box, Grid, IconButton, Typography } from "@mui/material";
-import { Container } from "@mui/system";
+import { Alert, Box, Grid, Typography } from "@mui/material";
 import ArrowDropDownCircle from "@mui/icons-material/ArrowDropDownCircle";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./landing.css";
 import { useEffect } from "react";
+import { ContextData } from "../../../context/contextData";
 
 const Landing = () => {
   useEffect(() => {
     displayMensaje();
   }, []);
 
+  const {user} = useContext(ContextData)
   let [subtitle, setSubtitle] = useState("");
-
+  
   const displayMensaje = () => {
     let mensaje = "Developer|";
     let index = 0;
@@ -91,7 +92,7 @@ const Landing = () => {
         container
         sx={{
           height: "100%",
-          maxHeight:  "90vh",
+          maxHeight: "90vh",
           display: "flex",
           alignItems: "end",
           overflow: "hidden",
@@ -108,11 +109,11 @@ const Landing = () => {
               width: "100%",
             }}
           />
+
           <Grid
             item
             xs={12}
             sx={{
-              
               position: "absolute",
               width: "100%",
               bottom: "10%",
@@ -120,10 +121,20 @@ const Landing = () => {
               zIndex: 1,
             }}
           >
-            <Typography className="scroll_text" color="white" align="center" variant="h6">
+            <Typography
+              className="scroll_text"
+              color="white"
+              align="center"
+              variant="h6"
+            >
               Scroll down to see my portfolio
             </Typography>
-            <Typography className="scroll_text" color="white" align="center" variant="h6">
+            <Typography
+              className="scroll_text"
+              color="white"
+              align="center"
+              variant="h6"
+            >
               <ArrowDropDownCircle />
             </Typography>
           </Grid>

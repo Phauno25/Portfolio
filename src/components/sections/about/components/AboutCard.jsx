@@ -16,9 +16,10 @@ import EditCard from "./edit/EditCard";
 import AdminModal from "../../../shared/AdminModal";
 
 const AboutCard = (props) => {
-  const { name, profile, email, city, image } = props.about;
+  const { name, profile, email, city, image ,imageAlt} = props.about;
   const [isEdit, setIsEdit] = useState(false);
   const { user } = useContext(ContextData);
+
   return (
     <>
       <Grid container sx={{ flexDirection: "column" }}>
@@ -61,12 +62,20 @@ const AboutCard = (props) => {
               <ListItemText primary="City" secondary={city} />
             </ListItem>
           </List>
-          {user ? <AdminButton icon="edit" callback={()=> setIsEdit(true)} /> : ""}
+          {user ? (
+            <AdminButton icon="edit" callback={() => setIsEdit(true)} />
+          ) : (
+            ""
+          )}
         </Grid>
       </Grid>
 
-      <AdminModal title="Edit Profile" open={isEdit} onClose={()=>setIsEdit(false)} component={<EditCard />} />
-
+      <AdminModal
+        title="Edit Profile"
+        open={isEdit}
+        onClose={() => setIsEdit(false)}
+        component={<EditCard setOpen={setIsEdit} dispatch={props.dispatch} about={props.about} />}
+      />
     </>
   );
 };

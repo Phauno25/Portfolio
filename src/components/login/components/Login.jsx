@@ -33,7 +33,7 @@ const Login = () => {
 
   const logIn = (e) => {
     e.preventDefault();
-
+    setStatus("loading");
     signInWithEmailAndPassword(Auth, email, pass)
       .then(() => setStatus("success"))
       .then(() =>

@@ -19,7 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import BodyContent from "../body/BodyContent";
-import { Button, Icon } from "@mui/material";
+import { Alert, Button, Icon } from "@mui/material";
 import { Auth } from "../../../config/firebase";
 import { ContextData } from "../../../context/contextData";
 
@@ -73,7 +73,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const {user, setUser} = useContext(ContextData);
+  const { user, setUser } = useContext(ContextData);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -86,11 +86,9 @@ export default function PersistentDrawerLeft() {
     if (user) {
       Auth.signOut();
       setUser(null);
+    } else {
+      window.location.href = "/SignIn";
     }
-    else{
-      window.location.href="/SignIn";
-    }
-   
   };
 
   useEffect(() => {
@@ -102,7 +100,7 @@ export default function PersistentDrawerLeft() {
   }, []);
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex"}}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -124,7 +122,7 @@ export default function PersistentDrawerLeft() {
             {user ? "Sign Out" : "Sign In"}
           </Button>
         </Toolbar>
-      </AppBar>
+      </AppBar> 
       <Drawer
         sx={{
           width: drawerWidth,
@@ -138,6 +136,7 @@ export default function PersistentDrawerLeft() {
         anchor="left"
         open={open}
       >
+        
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (

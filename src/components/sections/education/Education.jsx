@@ -1,4 +1,3 @@
-import FastfoodIcon from "@mui/icons-material/Fastfood";
 import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
@@ -6,62 +5,125 @@ import TimelineDot from "@mui/lab/TimelineDot";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
-import React, { useContext } from "react";
-import { Box, Icon, Paper, Typography } from "@mui/material";
+import React, { useContext, useEffect, useReducer, useState } from "react";
+import { Box, Button, Grid, Icon, Paper, Typography } from "@mui/material";
 import AdminButton from "../../shared/AdminButton";
 import { ContextData } from "../../../context/contextData";
+import EditEducation from "./edit/EditEducation";
+import AdminModal from "../../shared/AdminModal";
+import portfolioService from "../../../services/portfolioService";
+import educationReducer from "./hooks/educationReducer";
 
-const Education = (props) => {
-  const { education } = props;
+const initialEducation = null;
+
+const Education = () => {
   const { user } = useContext(ContextData);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editRequest, setEditRequest] = useState();
+  const [selectedEducation, setSelectedEducation] = useState();
+  const [education, dispatch] = useReducer(educationReducer, initialEducation);
+  
+
+  useEffect(() => {
+    portfolioService.getCollection("education").then((res) => {
+      dispatch({ type: "setEducation", payload: res });
+    });
+    console.log(education)
+  }, []);
+
+  const openModal = (item,request) => {
+    setEditRequest(request)
+    setSelectedEducation(item);
+    setIsEdit(true);
+  };
+
   return (
-    <Box component={"div"}>
-      <Typography
-        variant="h4"
-        color="secondary"
-        align="center"
-        sx={{ position: "relative" }}
-      >
-        Education
-        {user ? (
-          <>
-            <AdminButton icon="edit" />
-            <AdminButton icon="add_circle" />
-          </>
-        ) : (
-          ""
-        )}
-      </Typography>
-      <Typography align="center">Places where I was formed</Typography>
-      <Timeline position="alternate">
-        {education.map((item, index) => {
-          return (
-            <TimelineItem>
-              <TimelineOppositeContent
-                align={index % 2 === 0 ? "right" : "left"}
-                sx={{ m: "auto 0" }}
-                variant="body2"
-                color="text.secondary"
+    <>
+      {education ? (
+        <Box component={"div"}>
+          <Typography
+            variant="h4"
+            color="secondary"
+            align="center"
+            sx={{ position: "relative" }}
+          >
+            Education
+          </Typography>
+          <Typography align="center">Places where I was formed</Typography>
+          <Timeline position="alternate">
+            {education.map((item, index) => {
+              return (
+                <TimelineItem id={item.id}>
+                  <TimelineOppositeContent
+                    align={index % 2 === 0 ? "right" : "left"}
+                    sx={{ m: "auto 0" }}
+                    variant="body2"
+                    color="text.secondary"
+                  >
+                    {item.data.dateFrom} - {item.data.dateTo}
+                    {user ? (
+                      <AdminButton
+                        icon="edit"
+                        callback={() => openModal(item,"edit")}
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </TimelineOppositeContent>
+                  <TimelineSeparator>
+                    <TimelineDot color="secondary" variant="outlined">
+                      <Icon>{item.data.icon}</Icon>
+                    </TimelineDot>
+                    <TimelineConnector />
+                  </TimelineSeparator>
+                  <TimelineContent sx={{ py: "12px", px: 2 }}>
+                    <Typography variant="h6" component="span">
+                      {item.data.title}
+                    </Typography>
+                    <Typography color="grey.400">{item.data.place}</Typography>
+                  </TimelineContent>
+                </TimelineItem>
+              );
+            })}
+          </Timeline>
+          {user ? (
+            <Grid container>
+              <Grid
+                item
+                xs={12}
+                sx={{ display: "flex", justifyContent: "center" }}
               >
-                {item.dateFrom} - {item.dateTo}
-              </TimelineOppositeContent>
-              <TimelineSeparator>
-                <TimelineDot color="secondary" variant="outlined">
-                  <Icon>{item.icon}</Icon>
-                </TimelineDot>
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent sx={{ py: "12px", px: 2 }}>
-                <Typography variant="h6" component="span">
-                  {item.title}
-                </Typography>
-                <Typography color="grey.400">{item.place}</Typography>
-              </TimelineContent>
-            </TimelineItem>
-          );
-        })}
-      </Timeline>
-    </Box>
+                <Button
+                  startIcon={<Icon>add_circle</Icon>}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => openModal("","add")}
+                >
+                  ADD EDUCATION
+                </Button>
+              </Grid>
+            </Grid>
+          ) : (
+            ""
+          )}
+          <AdminModal
+            title="Edit Education"
+            open={isEdit}
+            onClose={() => setIsEdit(false)}
+            component={
+              <EditEducation
+                setOpen={setIsEdit}
+                selectedEducation={selectedEducation}
+                dispatch={dispatch}
+                request={editRequest}
+              />
+            }
+          />
+        </Box>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 

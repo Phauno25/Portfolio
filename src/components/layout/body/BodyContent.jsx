@@ -17,7 +17,7 @@ const BodyContent = (props) => {
   return pablo ? (
     <>
       <Landing></Landing>
-      <AboutMe about={pablo.about}></AboutMe>
+      <AboutMe></AboutMe>
       <SoftSkills softSkills={pablo.softskills}></SoftSkills>
       <Grid container spacing={2} sx={{py:8}}>
         <Grid item xs={12} md={6}>

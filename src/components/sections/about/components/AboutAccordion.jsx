@@ -5,34 +5,32 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ContextData } from "../../../../context/contextData";
 import AdminButton from "../../../shared/AdminButton";
+import AdminModal from "../../../shared/AdminModal";
+import EditAccordion from "./edit/EditAccordion";
 
 const AboutAccordion = (props) => {
-
-  const {user} = useContext(ContextData) 
+  const { user } = useContext(ContextData);
   const { description } = props.about;
-  const [openProf,setOpenProf] = useState(true)
-  const [openPers,setOpenPers] = useState(false)
-  const [openConc,setOpenConc] = useState(false)
-  
+  const { dispatch } = props;
+  const [isEdit, setIsEdit] = useState(false);
+  const [openProf, setOpenProf] = useState(true);
+  const [openPers, setOpenPers] = useState(false);
+  const [openConc, setOpenConc] = useState(false);
+
   const handleProf = (e) => {
-    openProf ? setOpenProf(false) 
-    : setOpenProf(true)
-  }
+    openProf ? setOpenProf(false) : setOpenProf(true);
+  };
 
   const handlePers = (e) => {
-    openPers ? setOpenPers(false) 
-    : setOpenPers(true)
-  }
-
+    openPers ? setOpenPers(false) : setOpenPers(true);
+  };
 
   const handleConc = (e) => {
-    openConc ? setOpenConc(false) 
-    : setOpenConc(true)
-  }
-
+    openConc ? setOpenConc(false) : setOpenConc(true);
+  };
 
   return (
     <>
@@ -45,16 +43,19 @@ const AboutAccordion = (props) => {
         position="relative"
       >
         About Me
-        {user ? (<AdminButton icon="edit" />) : ""}
+        {user ? (
+          <AdminButton icon="edit" callback={() => setIsEdit(true)} />
+        ) : (
+          ""
+        )}
       </Typography>
-     
 
       <Accordion expanded={openProf}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
-          onClick={(e)=> handleProf(e) }
+          onClick={(e) => handleProf(e)}
         >
           <Typography>Proffessional Context</Typography>
         </AccordionSummary>
@@ -69,7 +70,7 @@ const AboutAccordion = (props) => {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"
           id="panel2a-header"
-          onClick={(e)=> handlePers(e)}
+          onClick={(e) => handlePers(e)}
         >
           <Typography>Personal Context</Typography>
         </AccordionSummary>
@@ -84,7 +85,7 @@ const AboutAccordion = (props) => {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"
           id="panel2a-header"
-          onClick={(e)=> handleConc(e)}
+          onClick={(e) => handleConc(e)}
         >
           <Typography>Why Me?</Typography>
         </AccordionSummary>
@@ -94,6 +95,19 @@ const AboutAccordion = (props) => {
           </Typography>
         </AccordionDetails>
       </Accordion>
+
+      <AdminModal
+        title="Edit Profile"
+        open={isEdit}
+        onClose={() => setIsEdit(false)}
+        component={
+          <EditAccordion
+            setOpen={setIsEdit}
+            description={description}
+            dispatch={dispatch}
+          />
+        }
+      />
     </>
   );
 };
