@@ -14,7 +14,7 @@ import regex from "../../../../../utils/regex";
 
 const EditCard = (props) => {
   const { name, profile, email, city, image } = props.about;
-  const { setOpen,dispatch } = props;
+  const { setOpen,dispatch} = props;
   const [status, setStatus] = useState("ready");
   const [imgPreview, setImgPreview] = useState();
 

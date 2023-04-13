@@ -1,32 +1,40 @@
 import {
   Box,
+  Button,
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
   Container,
   Grid,
+  Icon,
   Typography,
 } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import AdminButton from "../../shared/AdminButton";
 import { ContextData } from "../../../context/contextData";
 import AdminModal from "../../shared/AdminModal";
 import EditProduct from "./edit/EditProduct";
 import portfolioService from "../../../services/portfolioService";
+import productReducer from "./hooks/productReducer";
+
+const initialProduct = null;
 
 const Products = () => {
   const { user } = useContext(ContextData);
   const [isEdit, setIsEdit] = useState(false);
+  const [editRequest, setEditRequest] = useState();
   const [selectedProduct, setSelectedProduct] = useState();
-  const [products, setProducts] = useState();
+  const [products, dispatch] = useReducer(productReducer,initialProduct );
 
   useEffect(() => {
-    portfolioService.getCollection("products").then((res) => setProducts(res));
+    portfolioService.getCollection("products").then((res) => {
+      dispatch({ type: "setProduct", payload: res });
+    });
   }, []);
-
-  const openModal = (item) => {
+  const openModal = (item,request) => {
     setSelectedProduct(item);
+    setEditRequest(request);
     setIsEdit(true);
   };
 
@@ -63,7 +71,7 @@ const Products = () => {
                         {user ? (
                           <AdminButton
                             icon="edit"
-                            callback={(e) => openModal(item)}
+                            callback={() => openModal(item, "edit")}
                           />
                         ) : (
                           ""
@@ -73,6 +81,24 @@ const Products = () => {
                   </Grid>
                 );
               })}
+               {user ? (
+                <Grid
+                  item
+                  xs={12}
+                  sx={{ display: "flex", justifyContent: "center" }}
+                >
+                  <Button
+                    startIcon={<Icon>add_circle</Icon>}
+                    variant="contained"
+                    color="primary"
+                    onClick={()=>openModal("","add")}
+                  >
+                    ADD PRODUCT
+                  </Button>
+                </Grid>
+              ) : (
+                ""
+              )}
             </Grid>
           </Container>
           <AdminModal
@@ -83,6 +109,9 @@ const Products = () => {
               <EditProduct
                 setOpen={setIsEdit}
                 selectedProduct={selectedProduct}
+                dispatch={dispatch}
+                request={editRequest}
+                
               />
             }
           />

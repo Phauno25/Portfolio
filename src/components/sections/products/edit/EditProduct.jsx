@@ -13,8 +13,8 @@ import {
   import QueryResult from "../../../shared/QueryResult";
   
   const EditProduct = (props) => {
-    const { image, imageAlt,title,url, description } = props.selectedProduct;
-    const { setOpen } = props;
+    const { image, imageAlt,title,url, description } = props.selectedProduct.data ? props.selectedProduct.data : "";
+    const { setOpen, dispatch, request } = props;
     const [status, setStatus] = useState("ready");
     const [imgPreview, setImgPreview] = useState();
     
@@ -32,6 +32,24 @@ import {
     const handleSubmit = (e) => {
       e.preventDefault();
       setStatus("loading");
+      const NewProduct = {
+        id: props.selectedProduct.id,
+        data: {
+          image: e.target["url"].value,
+          title: e.target["title"].value,
+          description: e.target["description"].value,
+          image: imgPreview ? imgPreview : image,
+        },
+      };
+      switch (request) {
+        case "edit":
+          dispatch({ type: "editProduct", payload: NewProduct });
+          break;
+  
+        case "add":
+          dispatch({ type: "addProduct", payload: NewProduct });
+          break;
+      }
       setTimeout(() => {
         setStatus("success");
         setTimeout(() => {
@@ -84,7 +102,7 @@ import {
             <Typography variant="body2">Product image</Typography>
               <Button variant="contained" component="label">
                 Upload File
-                <input onChange={(e)=>loadImage(e)} type="file" hidden />
+                <input name="image" onChange={(e)=>loadImage(e)} type="file" hidden />
               </Button>
             </Grid>
             <Grid
@@ -121,7 +139,7 @@ import {
                 name="url"
                 fullWidth
                 label="Product Url"
-                defaultValue={description}
+                defaultValue={url}
               />
             </Grid>
           </Grid>
