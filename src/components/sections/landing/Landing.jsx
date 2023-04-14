@@ -96,7 +96,7 @@ const Landing = () => {
                   zIndex: 1,
                 }}
               >
-                <Grid item xs={12} sm={9} >
+                <Grid item xs={12} sm={9} md={6} >
                   <Alert variant="filled" severity="error">This is a demo of an admin mode. Feel free to modify data as it won't really impact on this portfolio's database</Alert>
                 </Grid>
               </Grid>) : ""
