@@ -101,7 +101,7 @@ const Landing = () => {
         <Grid item xs={12}>
           <Box
             component="img"
-            src="./landing.jpg"
+            src={window.location.origin + '/landing.jpg'}
             sx={{
               opacity: 0.7,
               objectFit: "cover",
