@@ -28,6 +28,11 @@ const Landing = () => {
     setIsEdit(true);
   };
 
+  const scrollToTarget = (id) => {
+    const target = document.getElementById(id);
+    target.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
       {landing ? (
@@ -79,7 +84,7 @@ const Landing = () => {
                 align="center"
                 variant="h6"
               >
-                <IconButton href="#aboutMe"><Icon>arrow_drop_down_circle</Icon></IconButton> 
+                <IconButton onClick={() =>scrollToTarget("aboutMe")}><Icon>arrow_drop_down_circle</Icon></IconButton> 
               </Typography>
             </Grid>
           </Grid>
