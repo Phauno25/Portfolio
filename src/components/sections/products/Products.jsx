@@ -93,7 +93,7 @@ const Products = () => {
                     color="primary"
                     onClick={()=>openModal("","add")}
                   >
-                    ADD PRODUCT
+                    ADD WORK
                   </Button>
                 </Grid>
               ) : (

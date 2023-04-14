@@ -87,7 +87,7 @@ export default function PersistentDrawerLeft() {
       Auth.signOut();
       setUser(null);
     } else {
-      window.location.href = "/SignIn";
+      window.location.href = process.env.PUBLIC_URL+"/SignIn";
     }
   };
 
