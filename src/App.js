@@ -32,12 +32,12 @@ function App() {
     <div className="App">
       <ContextProvider>
         <ThemeProvider theme={theme}>
-          <HashRouter base={process.env.PUBLIC_URL}>
+          <BrowserRouter base={process.env.PUBLIC_URL}>
             <Routes>
               <Route exact path="/" element={<Main/>}/>
-              <Route path="/SignIn" element={<Login />}></Route>
+              <Route path="/SignIn" element={<Login />}/>
             </Routes>
-          </HashRouter>
+          </BrowserRouter>
         </ThemeProvider>
       </ContextProvider>
     </div>

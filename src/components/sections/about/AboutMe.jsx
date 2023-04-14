@@ -40,7 +40,7 @@ const AboutMe = () => {
   return (
     <>
       {about ? (
-        <Box component={"div"} sx={{ py: 8 }}>
+        <Box component={"div"} id="aboutMe" sx={{ py: 8 }}>
           <Grid container spacing={6} sx={{ justifyContent: "center" }}>
             <Grid item xs={12} md={3}>
             <AboutCard about={about} dispatch={dispatch} />

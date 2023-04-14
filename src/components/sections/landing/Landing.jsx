@@ -1,176 +1,160 @@
-import { Alert, Box, Grid, Typography } from "@mui/material";
-import ArrowDropDownCircle from "@mui/icons-material/ArrowDropDownCircle";
-import React, { useContext, useState } from "react";
+import { Alert, Box, Grid, Icon, IconButton, Typography } from "@mui/material";
+import React, { useContext, useReducer, useState } from "react";
 import "./landing.css";
 import { useEffect } from "react";
 import { ContextData } from "../../../context/contextData";
+import AdminButton from "../../shared/AdminButton";
+import EditLanding from "./edit/EditLanding";
+import landingReducer from "./hooks/landingReducer";
+import portfolioService from "../../../services/portfolioService";
+import AdminModal from "../../shared/AdminModal";
+import DisplayMessage from "./components/DisplayMessage";
 
+const initialLanding = null;
 const Landing = () => {
+  const { user } = useContext(ContextData);
+  const [isEdit, setIsEdit] = useState(false);
+  const [activeMsg, setActiveMsg] = useState(true);
+
+  const [landing, dispatch] = useReducer(landingReducer, initialLanding);
+
   useEffect(() => {
-    displayMensaje();
+    portfolioService.getCollection("landing").then((res) => {
+      dispatch({ type: "setLanding", payload: res[0] });
+    });
   }, []);
 
-  const {user} = useContext(ContextData)
-  let [subtitle, setSubtitle] = useState("");
-  
-  const displayMensaje = () => {
-    let mensaje = "Developer|";
-    let index = 0;
-    let status = 1;
-    let text = "";
-    let counter = 0;
-
-    setInterval(() => {
-      switch (status) {
-        case 0:
-          text = text.slice(0, -1);
-          if (text === "") {
-            status = 1;
-            index = 0;
-          }
-          setSubtitle(text);
-          break;
-
-        case 1:
-          text += mensaje[index];
-          index++;
-          if (text === mensaje) {
-            status = 2;
-
-            switch (mensaje) {
-              case "Developer|":
-                mensaje = "Full Stack|";
-                setSubtitle(text.slice(0, -1));
-                break;
-              case "Full Stack|":
-                mensaje = "Let's code toghether|";
-                setSubtitle(text.slice(0, -1));
-                break;
-              default:
-                mensaje = "Developer|";
-                setSubtitle(text.slice(0, -1));
-                break;
-            }
-          } else {
-            setSubtitle(text + "|");
-            break;
-          }
-
-        case 2:
-          if ([0, 4, 8, 12, 16].includes(counter) && counter < 16) {
-            text = text.slice(0, -1);
-            setSubtitle(text);
-          }
-          if ([1, 5, 9, 13].includes(counter) && counter < 16) {
-            status = 3;
-          }
-          counter++;
-          break;
-        case 3:
-          if (counter < 13) {
-            if ([2, 6, 10, 14].includes(counter)) {
-              text = text + "|";
-              setSubtitle(text);
-            }
-            if ([3, 7, 11, 15].includes(counter) && counter < 16) {
-              status = 2;
-            }
-            counter++;
-          } else {
-            status = 0;
-            counter = 0;
-          }
-
-          break;
-      }
-    }, 100);
+  const openModal = () => {
+    setIsEdit(true);
   };
 
   return (
     <>
-      <Grid
-        container
-        sx={{
-          height: "100%",
-          maxHeight: "90vh",
-          display: "flex",
-          alignItems: "end",
-          overflow: "hidden",
-        }}
-      >
-        <Grid item xs={12}>
-          <Box
-            component="img"
-            src={window.location.origin + '/landing.jpg'}
-            sx={{
-              opacity: 0.7,
-              objectFit: "cover",
-              maxHeight: "100%",
-              width: "100%",
-            }}
-          />
+      {landing ? (
+        <Grid
+          container
+          sx={{
+            height: "100%",
+            maxHeight: "100vh",
+            display: "flex",
+            alignItems: "end",
+            overflow: "hidden",
+            position:"relative"
+          }}
+        >
+          <Grid item xs={12}>
+            <Box
+              component="img"
+              src={landing.backgroundImg}
+              sx={{
+                opacity: 0.7,
+                objectFit: "cover",
+                maxHeight: "100%",
+                width: "100%",
+              }}
+            />
 
-          <Grid
-            item
-            xs={12}
-            sx={{
-              position: "absolute",
-              width: "100%",
-              bottom: "10%",
-              left: 0,
-              zIndex: 1,
-            }}
-          >
-            <Typography
-              className="scroll_text"
-              color="white"
-              align="center"
-              variant="h6"
+            <Grid
+              item
+              xs={12}
+              sx={{
+                position: "absolute",
+                width: "100%",
+                bottom: "10%",
+                left: 0,
+                zIndex: 1,
+              }}
             >
-              Scroll down to see my portfolio
-            </Typography>
-            <Typography
-              className="scroll_text"
-              color="white"
-              align="center"
-              variant="h6"
-            >
-              <ArrowDropDownCircle />
-            </Typography>
+              <Typography
+                className="scroll_text"
+                color="white"
+                align="center"
+                variant="h6"
+              >
+                Scroll down to see my portfolio
+              </Typography>
+              <Typography
+                className="scroll_text"
+                color="white"
+                align="center"
+                variant="h6"
+              >
+                <IconButton href="#aboutMe"><Icon>arrow_drop_down_circle</Icon></IconButton> 
+              </Typography>
+            </Grid>
           </Grid>
-        </Grid>
 
-        <Grid item xs={12}>
-          <Grid
-            container
-            sx={{
-              position: "absolute",
-              heigth: "100%",
-              top: { xs: "15%", md: "30%", lg: "50%" },
-              left: 0,
-              zIndex: 1,
-            }}
-          >
-            <Grid item xs={12} sm={9}>
-              <Grid container spacing={10}>
-                <Grid item xs={12}>
-                  <Typography color="white" align="center" variant="h3">
-                    Hi! I am <span className="highlight">Pablo Coronel </span>
-                  </Typography>
-                  <Typography
-                    id="lali"
-                    color="white"
-                    variant="h6"
-                    sx={{ width: "30%", display: "block", margin: "0 auto" }}
-                  >
-                    {subtitle}
-                  </Typography>
+          <Grid item xs={12}>
+            {
+              user ? (     <Grid
+                container
+                sx={{
+                  position: "absolute",
+                  heigth: "100%",
+                  top: { xs: "50%", md: "25%", lg: "15%" },
+                  left: 0,
+                  zIndex: 1,
+                }}
+              >
+                <Grid item xs={12} sm={9} >
+                  <Alert variant="filled" severity="error">This is a demo of an admin mode. Feel free to modify data as it won't really impact on this portfolio's database</Alert>
+                </Grid>
+              </Grid>) : ""
+            }
+            <Grid
+              container
+              sx={{
+                position: "absolute",
+                heigth: "100%",
+                top: { xs: "15%", md: "30%", lg: "50%" },
+                left: 0,
+                zIndex: 1,
+              }}
+            >
+              <Grid item xs={12} sm={9}>
+                <Grid container spacing={10}>
+                  <Grid item xs={12}>
+                    <Typography
+                      color="white"
+                      align="center"
+                      variant="h3"
+                      sx={{ position: "relative" }}
+                    >
+                      Hi! I am{" "}
+                      <span className="highlight">{landing.name} </span>
+                      {user ? (
+                        <AdminButton icon="edit" callback={() => openModal()} />
+                      ) : (
+                        ""
+                      )}
+                    </Typography>
+                    {activeMsg ? (
+                      <DisplayMessage landing={landing} />
+                    ) : (
+                      ""
+                    )}
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
+          <AdminModal
+            title="Edit Banner"
+            open={isEdit}
+            onClose={() => setIsEdit(false)}
+            component={
+              <EditLanding
+                setOpen={setIsEdit}
+                dispatch={dispatch}
+                landing={landing}
+                setActiveMsg={setActiveMsg}
+              />
+            }
+          />
         </Grid>
-      </Grid>
+      ) : (
+        ""
+      )}
     </>
   );
 };
