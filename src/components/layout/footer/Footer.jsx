@@ -12,7 +12,7 @@ const Footer = () => {
        <FormContact></FormContact>
         </Grid>
         <Grid item xs={12} md={6}>
-      aasdsda
+      This block is under construction... thanks for your patience
         </Grid> 
          </Grid>
   )

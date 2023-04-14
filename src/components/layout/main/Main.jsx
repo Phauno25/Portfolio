@@ -99,7 +99,7 @@ export default function PersistentDrawerLeft() {
   }, []);
 
   return (
-    <Box sx={{ display: "flex"}}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -121,7 +121,7 @@ export default function PersistentDrawerLeft() {
             {user ? "Sign Out" : "Sign In"}
           </Button>
         </Toolbar>
-      </AppBar> 
+      </AppBar>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -135,7 +135,6 @@ export default function PersistentDrawerLeft() {
         anchor="left"
         open={open}
       >
-        
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
@@ -147,29 +146,51 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <ListItem key={"aboutMe"} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Icon>person</Icon>
+              </ListItemIcon>
+              <ListItemText primary="About Me" />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <ListItem key={"softskills"} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Icon>person</Icon>
+              </ListItemIcon>
+              <ListItemText primary="Soft Skills" />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+
+          <ListItem key={"edex"} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Icon>person</Icon>
+              </ListItemIcon>
+              <ListItemText primary="Education & Exp" />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <ListItem key={"skills"} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Icon>person</Icon>
+              </ListItemIcon>
+              <ListItemText primary="Skills" />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <ListItem key={"works"} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Icon>person</Icon>
+              </ListItemIcon>
+              <ListItemText primary="Works" />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Drawer>
       <Main open={open}>
