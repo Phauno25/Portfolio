@@ -35,7 +35,7 @@ function App() {
           <BrowserRouter base={process.env.PUBLIC_URL}>
             <Routes>
               <Route exact path="/" element={<Main/>}/>
-              <Route path="/SignIn" element={<Login />}/>
+              <Route path="/signin" element={<Login />}/>
             </Routes>
           </BrowserRouter>
         </ThemeProvider>
