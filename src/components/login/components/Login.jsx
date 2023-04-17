@@ -38,7 +38,7 @@ const Login = () => {
       .then(() => setStatus("success"))
       .then(() =>
         setTimeout(() => {
-          window.location.href = process.env.PUBLIC_URL;
+          window.location.href = "/portfolio";
         }, 2500)
       )
       .catch((e) => {
