@@ -6,7 +6,7 @@ import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import React, { useContext, useEffect, useReducer, useState } from "react";
-import { Box, Button, Grid, Icon, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, Icon, Typography } from "@mui/material";
 import AdminButton from "../../shared/AdminButton";
 import { ContextData } from "../../../context/contextData";
 import AdminModal from "../../shared/AdminModal";

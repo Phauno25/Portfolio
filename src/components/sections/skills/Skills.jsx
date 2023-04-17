@@ -5,7 +5,6 @@ import {
   Container,
   Grid,
   Icon,
-  Paper,
   Typography,
 } from "@mui/material";
 import React, { useContext, useEffect, useReducer, useState } from "react";

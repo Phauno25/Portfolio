@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from "react";
-import { colors, createTheme } from "@mui/material";
 import themes from "../config/themes";
 
 export const ContextData = createContext();

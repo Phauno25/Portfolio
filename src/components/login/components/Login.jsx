@@ -2,11 +2,9 @@ import {
   Avatar,
   Box,
   Button,
-  Checkbox,
   CircularProgress,
   Container,
   CssBaseline,
-  FormControlLabel,
   Icon,
   Paper,
   TextField,
@@ -38,7 +36,7 @@ const Login = () => {
       .then(() => setStatus("success"))
       .then(() =>
         setTimeout(() => {
-          window.location.href = "/portfolio";
+          window.location.href = process.env.PUBLIC_URL;
         }, 2500)
       )
       .catch((e) => {

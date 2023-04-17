@@ -1,32 +1,34 @@
 import React from "react";
 import {
-  Container,
-  Paper,
-  Avatar,
-  Box,
-  Button,
   Grid,
   Icon,
   List,
   ListItem,
-  ListItemAvatar,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Typography,
+  linkClasses,
 } from "@mui/material";
+import { Storage } from "../../../config/firebase";
+import { ref, getDownloadURL } from "firebase/storage";
 
 const Footer = () => {
-
-
   const RedirectMailTo = () => {
-    window.location.href ="https://mail.google.com/mail/?view=cm&fs=1&to=pablohcoronel25@gmail.com"
-  }
+    window.location.href =
+      "https://mail.google.com/mail/?view=cm&fs=1&to=pablohcoronel25@gmail.com";
+  };
   const RedirectLinkedin = () => {
-    window.location.href ="https://www.linkedin.com/in/pablocoronel25/"
-  }
+    window.location.href = "https://www.linkedin.com/in/pablocoronel25/";
+  };
   const DonwloadCV = () => {
-  }
+    getDownloadURL(ref(Storage, "PabloCV.pdf")).then((e) => {
+      const link = document.createElement("a");
+      link.href = e;
+      link.target = "_blank";
+      link.click();
+      link.remove();
+    });
+  };
   return (
     <Grid container>
       <List
@@ -34,11 +36,11 @@ const Footer = () => {
           width: "100%",
           display: "flex",
           flexWrap: { xs: "wrap", sm: "nowrap" },
-          bgcolor: 'background.paper'
+          bgcolor: "background.paper",
         }}
       >
         <ListItem>
-          <ListItemButton>
+          <ListItemButton onClick={() => DonwloadCV()}>
             <ListItemIcon>
               <Icon>person</Icon>
             </ListItemIcon>
