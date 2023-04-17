@@ -69,6 +69,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
+const scrollToTarget = (id) => {
+  const target = document.getElementById(id);
+  target.scrollIntoView({ behavior: "smooth" });
+};
+
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -167,18 +172,18 @@ export default function PersistentDrawerLeft() {
         <Divider />
         <List>
           <ListItem key={"aboutMe"} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => scrollToTarget("aboutMe")}>
               <ListItemIcon>
-                <Icon>person</Icon>
+                <Icon>face</Icon>
               </ListItemIcon>
               <ListItemText primary="About Me" />
             </ListItemButton>
           </ListItem>
           <Divider />
           <ListItem key={"softskills"} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => scrollToTarget("softSkills")}>
               <ListItemIcon>
-                <Icon>person</Icon>
+                <Icon>diamond</Icon>
               </ListItemIcon>
               <ListItemText primary="Soft Skills" />
             </ListItemButton>
@@ -186,27 +191,27 @@ export default function PersistentDrawerLeft() {
           <Divider />
 
           <ListItem key={"edex"} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => scrollToTarget("edex")}>
               <ListItemIcon>
-                <Icon>person</Icon>
+                <Icon>school</Icon>
               </ListItemIcon>
               <ListItemText primary="Education & Exp" />
             </ListItemButton>
           </ListItem>
           <Divider />
           <ListItem key={"skills"} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => scrollToTarget("skills")}>
               <ListItemIcon>
-                <Icon>person</Icon>
+                <Icon>code</Icon>
               </ListItemIcon>
               <ListItemText primary="Skills" />
             </ListItemButton>
           </ListItem>
           <Divider />
           <ListItem key={"works"} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => scrollToTarget("products")}>
               <ListItemIcon>
-                <Icon>person</Icon>
+                <Icon>web</Icon>
               </ListItemIcon>
               <ListItemText primary="Works" />
             </ListItemButton>

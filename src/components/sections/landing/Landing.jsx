@@ -9,6 +9,7 @@ import portfolioService from "../../../services/portfolioService";
 import AdminModal from "../../shared/AdminModal";
 import DisplayMessage from "./components/DisplayMessage";
 import { useTheme,keyframes } from "@emotion/react";
+import LandingSkeleton from "./components/LandingSkeleton";
 
 const initialLanding = null;
 const Landing = () => {
@@ -170,7 +171,7 @@ const Landing = () => {
           />
         </Grid>
       ) : (
-        ""
+        <LandingSkeleton/>
       )}
     </>
   );

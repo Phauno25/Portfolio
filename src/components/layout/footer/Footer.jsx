@@ -17,6 +17,16 @@ import {
 } from "@mui/material";
 
 const Footer = () => {
+
+
+  const RedirectMailTo = () => {
+    window.location.href ="https://mail.google.com/mail/?view=cm&fs=1&to=pablohcoronel25@gmail.com"
+  }
+  const RedirectLinkedin = () => {
+    window.location.href ="https://www.linkedin.com/in/pablocoronel25/"
+  }
+  const DonwloadCV = () => {
+  }
   return (
     <Grid container>
       <List
@@ -39,7 +49,7 @@ const Footer = () => {
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton>
+          <ListItemButton onClick={() => RedirectLinkedin()}>
             <ListItemIcon>
               <Icon>work</Icon>
             </ListItemIcon>
@@ -51,7 +61,7 @@ const Footer = () => {
         </ListItem>
         <ListItem>
           <ListItemButton>
-            <ListItemIcon>
+            <ListItemIcon onClick={() => RedirectMailTo()}>
               <Icon>inbox</Icon>
             </ListItemIcon>
             <ListItemText

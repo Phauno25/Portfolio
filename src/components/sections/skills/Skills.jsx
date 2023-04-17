@@ -40,7 +40,7 @@ const Skills = () => {
   return (
     <>
       {skills ? (
-        <Box component={"div"} sx={{ py: 8 }}>
+        <Box component={"div"} id="skills" sx={{ py: 8 }}>
           <Typography variant="h4" align="center" color="secondary">
             What languages do I know?
           </Typography>
@@ -51,7 +51,7 @@ const Skills = () => {
             <Grid container spacing={2} sx={{ py: 4 }}>
               {skills.map((item) => {
                 return (
-                  <Grid item xs={4} sm={2} sx={{ position: "relative" }}>
+                  <Grid key={item.id} item xs={4} sm={2} sx={{ position: "relative" }}>
                     {user ? (
                       <AdminButton
                         icon="edit"

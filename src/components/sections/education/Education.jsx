@@ -22,17 +22,15 @@ const Education = () => {
   const [editRequest, setEditRequest] = useState();
   const [selectedEducation, setSelectedEducation] = useState();
   const [education, dispatch] = useReducer(educationReducer, initialEducation);
-  
 
   useEffect(() => {
     portfolioService.getCollection("education").then((res) => {
       dispatch({ type: "setEducation", payload: res });
     });
-    console.log(education)
   }, []);
 
-  const openModal = (item,request) => {
-    setEditRequest(request)
+  const openModal = (item, request) => {
+    setEditRequest(request);
     setSelectedEducation(item);
     setIsEdit(true);
   };
@@ -53,7 +51,7 @@ const Education = () => {
           <Timeline position="alternate">
             {education.map((item, index) => {
               return (
-                <TimelineItem id={item.id}>
+                <TimelineItem key={item.id} id={item.id}>
                   <TimelineOppositeContent
                     align={index % 2 === 0 ? "right" : "left"}
                     sx={{ m: "auto 0" }}
@@ -64,14 +62,19 @@ const Education = () => {
                     {user ? (
                       <AdminButton
                         icon="edit"
-                        callback={() => openModal(item,"edit")}
+                        callback={() => openModal(item, "edit")}
                       />
                     ) : (
                       ""
                     )}
                   </TimelineOppositeContent>
                   <TimelineSeparator>
-                    <TimelineDot color="secondary" variant={index < education.length -1 ? "outlined" : "filled"}>
+                    <TimelineDot
+                      color="secondary"
+                      variant={
+                        index < education.length - 1 ? "outlined" : "filled"
+                      }
+                    >
                       <Icon>{item.data.icon}</Icon>
                     </TimelineDot>
                     <TimelineConnector />
@@ -97,7 +100,7 @@ const Education = () => {
                   startIcon={<Icon>add_circle</Icon>}
                   variant="contained"
                   color="primary"
-                  onClick={() => openModal("","add")}
+                  onClick={() => openModal("", "add")}
                 >
                   ADD EDUCATION
                 </Button>

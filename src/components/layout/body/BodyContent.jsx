@@ -1,4 +1,3 @@
-
 import Landing from "../../sections/landing/Landing";
 import AboutMe from "../../sections/about/AboutMe";
 import SoftSkills from "../../sections/soft-skills/SoftSkills";
@@ -8,31 +7,26 @@ import { Grid } from "@mui/material";
 import Skills from "../../sections/skills/Skills";
 import Footer from "../footer/Footer";
 import Products from "../../sections/products/Products";
-import { ContextData } from "../../../context/contextData";
-import React, { useContext, useState } from "react";
+import React from "react";
 
 const BodyContent = (props) => {
-  
-  const {pablo} = useContext(ContextData);
-  return pablo ? (
+  return (
     <>
       <Landing></Landing>
       <AboutMe></AboutMe>
-      <SoftSkills softSkills={pablo.softskills}></SoftSkills>
-      <Grid container spacing={2} sx={{py:8}}>
+      <SoftSkills></SoftSkills>
+      <Grid container spacing={2} sx={{ py: 8 }} id="edex">
         <Grid item xs={12} md={6}>
-          <Experience experience={pablo.experience}></Experience>
+          <Experience></Experience>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Education education={pablo.education}></Education>
+          <Education></Education>
         </Grid>
       </Grid>
-      <Skills skills={pablo.skills}></Skills>
-      <Products products={pablo.products}></Products>
+      <Skills></Skills>
+      <Products></Products>
       <Footer></Footer>
     </>
-  ) : (
-    ""
   );
 };
 

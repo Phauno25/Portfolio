@@ -35,11 +35,12 @@ const SoftSkills = () => {
           component="div"
           className="soft_skills_container"
           sx={{ position: "relative", py: 10 }}
+          id="softSkills"
         >
           <Grid container spacing={2} sx={{ alignItems: "center" }}>
             {softSkills.map((item) => {
               return (
-                <Grid item xs={12} md={3} sx={{ position: "relative" }}>
+                <Grid key={item.id} item xs={12} md={3} sx={{ position: "relative" }}>
                   {user ? (
                     <AdminButton
                       icon="edit"
