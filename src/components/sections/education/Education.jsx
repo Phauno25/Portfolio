@@ -71,7 +71,7 @@ const Education = () => {
                     )}
                   </TimelineOppositeContent>
                   <TimelineSeparator>
-                    <TimelineDot color="secondary" variant="outlined">
+                    <TimelineDot color="secondary" variant={index < education.length -1 ? "outlined" : "filled"}>
                       <Icon>{item.data.icon}</Icon>
                     </TimelineDot>
                     <TimelineConnector />

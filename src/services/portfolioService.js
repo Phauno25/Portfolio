@@ -16,7 +16,8 @@ const portfolioService =  {
                         data: item.data()
                     }
                     docs.push(doc)
-                })        
+                }) 
+                docs.sort((a, b) => a.data.id - b.data.id);       
                 resolve(docs)    
             });
           });

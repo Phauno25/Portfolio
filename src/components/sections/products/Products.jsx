@@ -47,12 +47,12 @@ const Products = () => {
           </Typography>
           <Typography align="center">Some of my works</Typography>
           <Container>
-            <Grid container>
+            <Grid container spacing={2} sx={{py:4}}>
               {products.map((item) => {
                 return (
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={4}>
                     <Card id={item.id} sx={{ maxWidth: 345 }}>
-                      <CardActionArea target="_blank" href={item.url}>
+                      <CardActionArea target="_blank" href={item.data.url}>
                         <CardMedia
                           component="img"
                           height="250"

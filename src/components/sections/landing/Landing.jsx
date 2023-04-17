@@ -1,6 +1,5 @@
-import { Alert, Box, Grid, Icon, IconButton, Typography } from "@mui/material";
+import { Alert, Box, Grid, Icon, IconButton, Typography, colors } from "@mui/material";
 import React, { useContext, useReducer, useState } from "react";
-import "./landing.css";
 import { useEffect } from "react";
 import { ContextData } from "../../../context/contextData";
 import AdminButton from "../../shared/AdminButton";
@@ -9,9 +8,11 @@ import landingReducer from "./hooks/landingReducer";
 import portfolioService from "../../../services/portfolioService";
 import AdminModal from "../../shared/AdminModal";
 import DisplayMessage from "./components/DisplayMessage";
+import { useTheme,keyframes } from "@emotion/react";
 
 const initialLanding = null;
 const Landing = () => {
+  const theme = useTheme();
   const { user } = useContext(ContextData);
   const [isEdit, setIsEdit] = useState(false);
   const [activeMsg, setActiveMsg] = useState(true);
@@ -30,8 +31,14 @@ const Landing = () => {
 
   const scrollToTarget = (id) => {
     const target = document.getElementById(id);
-    target.scrollIntoView({ behavior: 'smooth' });
+    target.scrollIntoView({ behavior: "smooth" });
   };
+
+  const colorsin = keyframes`
+  0%   {color: white;}
+  50%  {color: ${theme.palette.secondary.main}}
+  100% {color: white; }
+`;
 
   return (
     <>
@@ -44,7 +51,7 @@ const Landing = () => {
             display: "flex",
             alignItems: "end",
             overflow: "hidden",
-            position:"relative"
+            position: "relative",
           }}
         >
           <Grid item xs={12}>
@@ -75,6 +82,7 @@ const Landing = () => {
                 color="white"
                 align="center"
                 variant="h6"
+                sx={{animation:`${colorsin} 2s infinite ease`}}
               >
                 Scroll down to see my portfolio
               </Typography>
@@ -83,15 +91,18 @@ const Landing = () => {
                 color="white"
                 align="center"
                 variant="h6"
+                
               >
-                <IconButton onClick={() =>scrollToTarget("aboutMe")}><Icon>arrow_drop_down_circle</Icon></IconButton> 
+                <IconButton onClick={() => scrollToTarget("aboutMe")}>
+                  <Icon sx={{animation:`${colorsin} 2s infinite ease`}}>arrow_drop_down_circle</Icon>
+                </IconButton>
               </Typography>
             </Grid>
           </Grid>
 
           <Grid item xs={12}>
-            {
-              user ? (     <Grid
+            {user ? (
+              <Grid
                 container
                 sx={{
                   position: "absolute",
@@ -101,11 +112,16 @@ const Landing = () => {
                   zIndex: 1,
                 }}
               >
-                <Grid item xs={12} sm={9} md={6} >
-                  <Alert variant="filled" severity="error">This is a demo of an admin mode. Feel free to modify data as it won't really impact on this portfolio's database</Alert>
+                <Grid item xs={12} sm={9} md={6}>
+                  <Alert variant="filled" severity="error">
+                    This is a demo of an admin mode. Feel free to modify data as
+                    it won't really impact on this portfolio's database
+                  </Alert>
                 </Grid>
-              </Grid>) : ""
-            }
+              </Grid>
+            ) : (
+              ""
+            )}
             <Grid
               container
               sx={{
@@ -126,18 +142,14 @@ const Landing = () => {
                       sx={{ position: "relative" }}
                     >
                       Hi! I am{" "}
-                      <span className="highlight">{landing.name} </span>
+                      <Box component={"span"} color={"secondary.main"} className="highlight">{landing.name} </Box>
                       {user ? (
                         <AdminButton icon="edit" callback={() => openModal()} />
                       ) : (
                         ""
                       )}
                     </Typography>
-                    {activeMsg ? (
-                      <DisplayMessage landing={landing} />
-                    ) : (
-                      ""
-                    )}
+                    {activeMsg ? <DisplayMessage landing={landing} /> : ""}
                   </Grid>
                 </Grid>
               </Grid>

@@ -19,7 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import BodyContent from "../body/BodyContent";
-import { Alert, Button, Icon } from "@mui/material";
+import { Alert, Button, Icon, Tooltip, colors } from "@mui/material";
 import { Auth } from "../../../config/firebase";
 import { ContextData } from "../../../context/contextData";
 
@@ -72,7 +72,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const { user, setUser } = useContext(ContextData);
+  const { user, setUser,establishTheme } = useContext(ContextData);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -86,7 +86,7 @@ export default function PersistentDrawerLeft() {
       Auth.signOut();
       setUser(null);
     } else {
-      window.location.href = process.env.PUBLIC_URL+"/#/signin";
+      window.location.href = process.env.PUBLIC_URL + "/#/signin";
     }
   };
 
@@ -120,6 +120,26 @@ export default function PersistentDrawerLeft() {
           >
             {user ? "Sign Out" : "Sign In"}
           </Button>
+          <Tooltip title="Pink Theme">
+          <IconButton onClick={()=>establishTheme("pinkTheme")}>
+            <Icon sx={{ color: colors.pink[400] }}>circle</Icon>
+          </IconButton>
+          </Tooltip>
+          <Tooltip title="Blue Theme">
+          <IconButton onClick={()=>establishTheme("blueTheme")}>
+            <Icon sx={{ color: colors.blue[400] }}>circle</Icon>
+          </IconButton>
+          </Tooltip>
+          <Tooltip title="Orange Theme">
+          <IconButton onClick={()=>establishTheme("orangeTheme")}>
+            <Icon sx={{ color: colors.orange[400] }}>circle</Icon>
+          </IconButton>
+          </Tooltip>
+          <Tooltip title="Yellow Theme">
+          <IconButton onClick={()=>establishTheme("yellowTheme")}>
+            <Icon sx={{ color: colors.yellow[400] }}>circle</Icon>
+          </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
       <Drawer

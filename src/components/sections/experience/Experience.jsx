@@ -66,7 +66,7 @@ const Experience = () => {
               )}
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot color="secondary" variant="outlined">
+              <TimelineDot color="secondary" variant={index < experience.length -1 ? "outlined" : "filled"}>
                 <Icon>{item.data.icon}</Icon>
               </TimelineDot>
               <TimelineConnector />
