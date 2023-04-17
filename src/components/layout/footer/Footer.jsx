@@ -62,8 +62,8 @@ const Footer = () => {
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton>
-            <ListItemIcon onClick={() => RedirectMailTo()}>
+          <ListItemButton onClick={() => RedirectMailTo()}>
+            <ListItemIcon >
               <Icon>inbox</Icon>
             </ListItemIcon>
             <ListItemText
